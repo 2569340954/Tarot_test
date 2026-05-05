@@ -44,6 +44,19 @@ GitHub 官方文档说明 Pages 可从分支发布，也可用 GitHub Actions �
 
 当前版本不需要服务器，记录保存在用户自己的浏览器 `localStorage` 中。优点是部署简单、隐私风险低；限制是换设备或清理浏览器后记录不会自动同步。
 
+## 牌图说明
+
+网站已经内置完整 78 张牌的数据，并按以下路径读取牌图：
+
+```text
+assets/cards/the-fool.webp
+assets/cards/the-magician.webp
+assets/cards/ace-of-wands.webp
+assets/cards/king-of-pentacles.webp
+```
+
+如果对应图片不存在，页面会自动显示符号版牌面，不影响抽牌和解读。请只放入你拥有版权、已获授权，或确认可公开使用的牌图。
+
 如果后续需要账号体系、跨设备同步、运营后台和用户画像，可以升级到：
 
 - Supabase：适合快速实现登录、数据库、后台查询。

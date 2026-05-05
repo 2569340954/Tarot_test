@@ -1,8 +1,9 @@
 const STORAGE_KEY = "tarot-reading-records-v1";
 
-const cards = [
+const majorArcana = [
   {
     name: "愚者",
+    slug: "the-fool",
     symbol: "☉",
     light: "新的开始、自由、信任直觉",
     shadow: "准备不足、逃避承诺、冲动决定",
@@ -10,6 +11,7 @@ const cards = [
   },
   {
     name: "魔术师",
+    slug: "the-magician",
     symbol: "✦",
     light: "资源整合、主动表达、创造机会",
     shadow: "过度控制、信息包装、目标分散",
@@ -17,6 +19,7 @@ const cards = [
   },
   {
     name: "女祭司",
+    slug: "the-high-priestess",
     symbol: "☾",
     light: "潜意识、观察、等待时机",
     shadow: "沉默造成误解、信息不透明",
@@ -24,6 +27,7 @@ const cards = [
   },
   {
     name: "皇后",
+    slug: "the-empress",
     symbol: "✿",
     light: "滋养、丰盛、关系中的支持",
     shadow: "依赖舒适区、过度付出",
@@ -31,13 +35,23 @@ const cards = [
   },
   {
     name: "皇帝",
+    slug: "the-emperor",
     symbol: "♜",
     light: "秩序、边界、长期规划",
     shadow: "僵化、权威压力、缺少弹性",
     essence: "建立规则和边界，把松散的想法落到可执行的结构里。",
   },
   {
+    name: "教皇",
+    slug: "the-hierophant",
+    symbol: "☷",
+    light: "传统、学习、信念系统、精神导师",
+    shadow: "教条束缚、盲从权威、害怕偏离常规",
+    essence: "重新审视你相信什么，也看清哪些规则仍然值得遵循。",
+  },
+  {
     name: "恋人",
+    slug: "the-lovers",
     symbol: "♡",
     light: "选择、关系、价值观对齐",
     shadow: "犹豫、讨好、短期诱惑",
@@ -45,6 +59,7 @@ const cards = [
   },
   {
     name: "战车",
+    slug: "the-chariot",
     symbol: "⌁",
     light: "推进、胜利、目标聚焦",
     shadow: "情绪拉扯、急于证明自己",
@@ -52,6 +67,7 @@ const cards = [
   },
   {
     name: "力量",
+    slug: "strength",
     symbol: "∞",
     light: "温柔的掌控、韧性、耐心",
     shadow: "压抑真实需求、消耗过度",
@@ -59,6 +75,7 @@ const cards = [
   },
   {
     name: "隐士",
+    slug: "the-hermit",
     symbol: "✧",
     light: "内省、专业沉淀、独立判断",
     shadow: "孤立、拖延、拒绝求助",
@@ -66,6 +83,7 @@ const cards = [
   },
   {
     name: "命运之轮",
+    slug: "wheel-of-fortune",
     symbol: "◌",
     light: "周期变化、机会窗口、顺势而为",
     shadow: "把责任交给运气、节奏失控",
@@ -73,13 +91,55 @@ const cards = [
   },
   {
     name: "正义",
+    slug: "justice",
     symbol: "⚖",
     light: "平衡、事实、清晰契约",
     shadow: "过度评判、纠结对错",
     essence: "回到事实、规则和责任分配，模糊的问题需要被说清楚。",
   },
   {
+    name: "倒吊人",
+    slug: "the-hanged-man",
+    symbol: "⇅",
+    light: "暂停、换位思考、臣服、重新看见",
+    shadow: "无谓牺牲、停滞不前、被动等待",
+    essence: "先改变观看问题的角度，再判断是否真的需要继续坚持。",
+  },
+  {
+    name: "死神",
+    slug: "death",
+    symbol: "✕",
+    light: "结束、转化、断舍离、新旧交替",
+    shadow: "抗拒改变、拖延告别、害怕失去",
+    essence: "真正的转化常常从一次明确的结束开始。",
+  },
+  {
+    name: "节制",
+    slug: "temperance",
+    symbol: "♒",
+    light: "调和、修复、节奏、耐心整合",
+    shadow: "失衡、过度妥协、节奏混乱",
+    essence: "把极端拉回中间地带，让关系、资源和情绪重新流动。",
+  },
+  {
+    name: "恶魔",
+    slug: "the-devil",
+    symbol: "♑",
+    light: "欲望、绑定、现实诱惑、看见阴影",
+    shadow: "沉迷、依附、被恐惧或欲望控制",
+    essence: "看清你被什么牵制，才有机会重新拿回选择权。",
+  },
+  {
+    name: "高塔",
+    slug: "the-tower",
+    symbol: "⚡",
+    light: "突变、真相揭露、结构崩塌、清醒",
+    shadow: "抗拒崩塌、危机累积、旧结构反噬",
+    essence: "不稳固的东西正在被拆开，目的是让你回到真实。",
+  },
+  {
     name: "星星",
+    slug: "the-star",
     symbol: "✶",
     light: "疗愈、希望、长期愿景",
     shadow: "理想化、行动不足",
@@ -87,6 +147,7 @@ const cards = [
   },
   {
     name: "月亮",
+    slug: "the-moon",
     symbol: "☽",
     light: "情绪线索、梦境、隐藏信息",
     shadow: "焦虑、投射、判断模糊",
@@ -94,6 +155,7 @@ const cards = [
   },
   {
     name: "太阳",
+    slug: "the-sun",
     symbol: "☀",
     light: "显化、信心、公开成果",
     shadow: "过度乐观、忽略细节",
@@ -101,6 +163,7 @@ const cards = [
   },
   {
     name: "审判",
+    slug: "judgement",
     symbol: "✷",
     light: "复盘、召唤、阶段升级",
     shadow: "沉迷旧账、害怕承担新身份",
@@ -108,11 +171,88 @@ const cards = [
   },
   {
     name: "世界",
+    slug: "the-world",
     symbol: "◎",
     light: "完成、整合、进入新循环",
     shadow: "不愿收尾、完美主义",
     essence: "一个阶段需要被整合和收尾，完成之后才有真正的新循环。",
   },
+];
+
+const minorSuits = [
+  {
+    suit: "权杖",
+    slug: "wands",
+    symbol: "♣",
+    element: "火",
+    theme: "行动、创造力、热情、事业推进",
+    shadowTheme: "急躁、消耗、冲动、方向分散",
+  },
+  {
+    suit: "圣杯",
+    slug: "cups",
+    symbol: "♢",
+    element: "水",
+    theme: "情感、关系、直觉、内在满足",
+    shadowTheme: "情绪化、依赖、逃避真实感受",
+  },
+  {
+    suit: "宝剑",
+    slug: "swords",
+    symbol: "♠",
+    element: "风",
+    theme: "思考、沟通、判断、冲突处理",
+    shadowTheme: "焦虑、争执、过度分析、言语伤害",
+  },
+  {
+    suit: "星币",
+    slug: "pentacles",
+    symbol: "◆",
+    element: "土",
+    theme: "资源、金钱、身体、长期建设",
+    shadowTheme: "停滞、匮乏感、过度保守、现实压力",
+  },
+];
+
+const minorRanks = [
+  ["ace", "一", "种子、开端、潜力"],
+  ["two", "二", "选择、平衡、协作"],
+  ["three", "三", "成长、合作、初步成果"],
+  ["four", "四", "稳定、基础、边界"],
+  ["five", "五", "冲突、挑战、调整"],
+  ["six", "六", "修复、过渡、互惠"],
+  ["seven", "七", "评估、防守、信念考验"],
+  ["eight", "八", "速度、练习、持续推进"],
+  ["nine", "九", "积累、临界点、个人经验"],
+  ["ten", "十", "完成、压力、阶段结果"],
+  ["page", "侍从", "学习、讯息、新手心态"],
+  ["knight", "骑士", "推进、追求、行动风格"],
+  ["queen", "王后", "成熟接纳、内在掌控、滋养"],
+  ["king", "国王", "领导、责任、外在掌控"],
+];
+
+const cards = [
+  ...majorArcana.map((card, index) => ({
+    ...card,
+    arcana: "大阿卡那",
+    number: index,
+    image: `assets/cards/${card.slug}.webp`,
+  })),
+  ...minorSuits.flatMap((suit) =>
+    minorRanks.map(([rankSlug, rankName, rankTheme], index) => ({
+      name: `${suit.suit}${rankName}`,
+      slug: `${rankSlug}-of-${suit.slug}`,
+      symbol: suit.symbol,
+      arcana: "小阿卡那",
+      suit: suit.suit,
+      element: suit.element,
+      number: index + 1,
+      light: `${rankTheme}、${suit.theme}`,
+      shadow: `${suit.shadowTheme}、${rankTheme}失衡`,
+      essence: `这张牌把“${suit.theme}”带入${rankTheme}的阶段，提醒你从具体处境里调整节奏。`,
+      image: `assets/cards/${rankSlug}-of-${suit.slug}.webp`,
+    })),
+  ),
 ];
 
 const topicAdvice = {
@@ -270,7 +410,7 @@ function renderReading(reading) {
                 <span class="card-position">${escapeHtml(card.position)}</span>
                 <h3 class="card-name">${escapeHtml(card.name)}${card.reversed ? " · 逆位" : " · 正位"}</h3>
               </div>
-              <div class="card-visual" aria-hidden="true">${escapeHtml(card.symbol)}</div>
+              ${cardImageHtml(card)}
               <p class="card-copy">${escapeHtml(card.reversed ? card.shadow : card.light)}</p>
             </article>
           `,
@@ -304,6 +444,20 @@ function renderReading(reading) {
       </ol>
     </section>
     <div class="advice-box">${escapeHtml(reading.advice)}</div>
+  `;
+}
+
+function cardImageHtml(card) {
+  return `
+    <figure class="card-visual">
+      <img
+        src="${escapeAttribute(card.image)}"
+        alt="${escapeAttribute(card.name)}牌面"
+        loading="lazy"
+        onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+      />
+      <span class="card-fallback" aria-hidden="true" hidden>${escapeHtml(card.symbol)}</span>
+    </figure>
   `;
 }
 
@@ -351,6 +505,10 @@ function escapeHtml(value) {
     };
     return map[char];
   });
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replace(/`/g, "&#096;");
 }
 
 form.addEventListener("submit", (event) => {
