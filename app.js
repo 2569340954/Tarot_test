@@ -1,4 +1,9 @@
 const STORAGE_KEY = "tarot-reading-records-v1";
+const CARD_IMAGE_SOURCE = "local"; // 可选值："local" 或 "tarotqa"
+const CARD_IMAGE_BASE_URLS = {
+  local: "assets/cards",
+  tarotqa: "https://cdn.tarotqa.com/images-optimized/tarot",
+};
 
 const majorArcana = [
   {
@@ -236,24 +241,40 @@ const cards = [
     ...card,
     arcana: "大阿卡那",
     number: index,
-    image: `assets/cards/${card.slug}.webp`,
+    image: cardImageUrl(card),
   })),
   ...minorSuits.flatMap((suit) =>
-    minorRanks.map(([rankSlug, rankName, rankTheme], index) => ({
-      name: `${suit.suit}${rankName}`,
-      slug: `${rankSlug}-of-${suit.slug}`,
-      symbol: suit.symbol,
-      arcana: "小阿卡那",
-      suit: suit.suit,
-      element: suit.element,
-      number: index + 1,
-      light: `${rankTheme}、${suit.theme}`,
-      shadow: `${suit.shadowTheme}、${rankTheme}失衡`,
-      essence: `这张牌把“${suit.theme}”带入${rankTheme}的阶段，提醒你从具体处境里调整节奏。`,
-      image: `assets/cards/${rankSlug}-of-${suit.slug}.webp`,
-    })),
+    minorRanks.map(([rankSlug, rankName, rankTheme], index) => {
+      const slug = `${rankSlug}-of-${suit.slug}`;
+      return {
+        name: `${suit.suit}${rankName}`,
+        slug,
+        symbol: suit.symbol,
+        arcana: "小阿卡那",
+        suit: suit.suit,
+        element: suit.element,
+        number: index + 1,
+        light: `${rankTheme}、${suit.theme}`,
+        shadow: `${suit.shadowTheme}、${rankTheme}失衡`,
+        essence: `这张牌把“${suit.theme}”带入${rankTheme}的阶段，提醒你从具体处境里调整节奏。`,
+        image: cardImageUrl({ slug }),
+      };
+    }),
   ),
 ];
+
+function cardImageUrl(card) {
+  const source = CARD_IMAGE_BASE_URLS[CARD_IMAGE_SOURCE] ? CARD_IMAGE_SOURCE : "local";
+  const fileName = source === "tarotqa" ? toTarotQaFileName(card.slug) : card.slug;
+  return `${CARD_IMAGE_BASE_URLS[source]}/${fileName}.webp`;
+}
+
+function toTarotQaFileName(slug) {
+  return slug
+    .split("-")
+    .map((part) => (part === "of" ? "of" : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join("_");
+}
 
 const topicAdvice = {
   事业: "把问题拆成一个可交付结果，并在 7 天内完成最小版本。",

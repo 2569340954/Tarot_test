@@ -57,6 +57,14 @@ assets/cards/king-of-pentacles.webp
 
 如果对应图片不存在，页面会自动显示符号版牌面，不影响抽牌和解读。请只放入你拥有版权、已获授权，或确认可公开使用的牌图。
 
+也可以在 `app.js` 顶部切换图片源：
+
+```js
+const CARD_IMAGE_SOURCE = "local"; // 可选值："local" 或 "tarotqa"
+```
+
+切到 `"tarotqa"` 后，页面会按 `https://cdn.tarotqa.com/images-optimized/tarot/The_Fool.webp` 这类规则加载图片。使用第三方 CDN 前，请先确认图片授权和热链规则；如果 CDN 图片加载失败，页面仍会回退到符号版牌面。
+
 如果后续需要账号体系、跨设备同步、运营后台和用户画像，可以升级到：
 
 - Supabase：适合快速实现登录、数据库、后台查询。
