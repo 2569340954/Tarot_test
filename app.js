@@ -502,7 +502,14 @@ function renderRecords() {
             <span>${escapeHtml(record.topic)}</span>
           </div>
           <h3>${escapeHtml(record.question)}</h3>
-          <p>${escapeHtml(record.cards.map((card) => `${card.position}：${card.name}${card.reversed ? "逆位" : "正位"}`).join(" / "))}</p>
+          <div class="record-card-list">
+            ${record.cards
+              .map(
+                (card) =>
+                  `<span>${escapeHtml(card.position)}：${escapeHtml(card.name)}${card.reversed ? "逆位" : "正位"}</span>`,
+              )
+              .join("")}
+          </div>
           <button class="ghost-action" type="button" data-record-id="${record.id}">查看</button>
         </article>
       `,
