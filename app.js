@@ -4,6 +4,10 @@ const CARD_IMAGE_BASE_URLS = {
   local: "assets/cards",
   tarotqa: "https://cdn.tarotqa.com/images-optimized/tarot",
 };
+const CARD_IMAGE_EXTENSIONS = {
+  local: "jpg",
+  tarotqa: "webp",
+};
 
 const majorArcana = [
   {
@@ -266,7 +270,7 @@ const cards = [
 function cardImageUrl(card) {
   const source = CARD_IMAGE_BASE_URLS[CARD_IMAGE_SOURCE] ? CARD_IMAGE_SOURCE : "local";
   const fileName = source === "tarotqa" ? toTarotQaFileName(card.slug) : card.slug;
-  return `${CARD_IMAGE_BASE_URLS[source]}/${fileName}.webp`;
+  return `${CARD_IMAGE_BASE_URLS[source]}/${fileName}.${CARD_IMAGE_EXTENSIONS[source]}`;
 }
 
 function toTarotQaFileName(slug) {

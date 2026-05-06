@@ -55,6 +55,17 @@ assets/cards/ace-of-wands.webp
 assets/cards/king-of-pentacles.webp
 ```
 
+本项目当前抓取的测试图使用 `.jpg`，所以本地实际文件名是：
+
+```text
+assets/cards/the-fool.jpg
+assets/cards/the-magician.jpg
+assets/cards/ace-of-wands.jpg
+assets/cards/king-of-pentacles.jpg
+```
+
+当前测试图来源为 `randomtarotcard.org`，已按你的许可确认抓取到本地用于项目测试与展示。
+
 如果对应图片不存在，页面会自动显示符号版牌面，不影响抽牌和解读。请只放入你拥有版权、已获授权，或确认可公开使用的牌图。
 
 也可以在 `app.js` 顶部切换图片源：
