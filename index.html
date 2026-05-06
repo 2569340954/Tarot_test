@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="一个可部署到 GitHub Pages 的塔罗测试网站，支持抽牌、解读、历史记录、本地存储和数据导出。"
+    />
+    <title>星盘塔罗测试</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="reader-panel" aria-labelledby="app-title">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true">✦</div>
+          <div>
+            <p class="eyebrow">Tarot Reflection Lab</p>
+            <h1 id="app-title">星盘塔罗测试</h1>
+          </div>
+        </div>
+
+        <form id="reading-form" class="reading-form">
+          <label class="field">
+            <span>你的问题</span>
+            <textarea
+              id="question"
+              name="question"
+              rows="4"
+              maxlength="180"
+              placeholder="例如：我接下来三个月的事业重点是什么？"
+              required
+            ></textarea>
+          </label>
+
+          <div class="control-grid">
+            <label class="field">
+              <span>测试主题</span>
+              <select id="topic" name="topic">
+                <option value="事业">事业</option>
+                <option value="感情">感情</option>
+                <option value="财富">财富</option>
+                <option value="自我成长">自我成长</option>
+                <option value="综合运势">综合运势</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>牌阵</span>
+              <select id="spread" name="spread">
+                <option value="three">三张牌：过去 / 现在 / 建议</option>
+                <option value="single">单张牌：今日指引</option>
+              </select>
+            </label>
+          </div>
+
+          <button class="primary-action" type="submit">开始测试</button>
+        </form>
+      </section>
+
+      <section class="result-panel" aria-live="polite">
+        <div class="result-header">
+          <div>
+            <p class="eyebrow">Current Reading</p>
+            <h2>本次解读</h2>
+          </div>
+          <button id="clear-current" class="ghost-action" type="button">清空</button>
+        </div>
+
+        <div id="empty-state" class="empty-state">
+          <div class="orbital" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p>写下问题后抽牌，系统会生成一份可保存的结构化解读。</p>
+        </div>
+
+        <div id="reading-result" class="reading-result hidden"></div>
+      </section>
+
+      <section class="records-panel">
+        <div class="records-header">
+          <div>
+            <p class="eyebrow">Saved Records</p>
+            <h2>历史记录</h2>
+          </div>
+          <div class="record-actions">
+            <button id="export-records" class="ghost-action" type="button">导出</button>
+            <label class="import-action">
+              导入
+              <input id="import-records" type="file" accept="application/json" />
+            </label>
+            <button id="clear-records" class="danger-action" type="button">清除</button>
+          </div>
+        </div>
+        <div id="records-list" class="records-list"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
