@@ -67,8 +67,7 @@ textarea,
 }
 
 .reader-panel {
-  position: sticky;
-  top: 1rem;
+  position: relative;
   overflow: hidden;
 }
 
@@ -339,6 +338,12 @@ select:focus {
   font-size: 0.9rem;
   line-height: 1.55;
   overflow-wrap: anywhere;
+}
+
+@media (min-width: 881px) {
+  .card-copy {
+    display: none;
+  }
 }
 
 .interpretation-section {
